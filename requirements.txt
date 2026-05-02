@@ -1,0 +1,13 @@
+pandas
+numpy
+scikit-learn
+joblib
+streamlit>=1.33.0
+plotly
+lightgbm
+xgboost
+imbalanced-learn
+shap
+fastapi
+uvicorn[standard]
+httpx
