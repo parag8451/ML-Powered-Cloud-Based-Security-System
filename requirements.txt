@@ -11,3 +11,4 @@ shap
 fastapi
 uvicorn[standard]
 httpx
+gdown
