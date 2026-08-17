@@ -111,7 +111,10 @@ CUSTOM_CSS = """
 
 
 .hero {
-    padding: 30px;
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    padding: 34px 34px 26px;
     border-radius: 28px;
     margin-bottom: 18px;
     background: linear-gradient(135deg, rgba(255,255,255,0.18), rgba(255,255,255,0.08));
@@ -327,6 +330,245 @@ CUSTOM_CSS = """
     margin: 0 auto 20px;
     border-radius: 999px;
     background: linear-gradient(90deg, rgba(126, 214, 255, 0.18), #7ed6ff, rgba(126, 214, 255, 0.18));
+}
+
+.cinematic-frame {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+}
+
+.cinematic-frame::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+        linear-gradient(115deg, transparent 0%, rgba(126, 214, 255, 0.08) 39%, transparent 58%),
+        repeating-linear-gradient(90deg, rgba(255,255,255,0.018) 0 1px, transparent 1px 72px);
+    opacity: 0.78;
+    transform: translateX(-18%);
+    animation: cinematicSweep 14s ease-in-out infinite;
+}
+
+.cinematic-frame::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(180deg, rgba(255,255,255,0.035), transparent 24%, transparent 76%, rgba(0,0,0,0.16));
+    mix-blend-mode: screen;
+}
+
+@keyframes cinematicSweep {
+    0%, 100% { transform: translateX(-22%); opacity: 0.4; }
+    50% { transform: translateX(22%); opacity: 0.9; }
+}
+
+@keyframes signalPulse {
+    0%, 100% { transform: scale(0.82); opacity: 0.32; }
+    50% { transform: scale(1.12); opacity: 1; }
+}
+
+@keyframes orbitDrift {
+    from { transform: rotate(0deg) translateX(2px) rotate(0deg); }
+    to { transform: rotate(360deg) translateX(2px) rotate(-360deg); }
+}
+
+.cinematic-orbit {
+    position: absolute;
+    width: 210px;
+    height: 210px;
+    right: 5%;
+    top: 14%;
+    border: 1px solid rgba(126, 214, 255, 0.18);
+    border-radius: 50%;
+    transform: rotate(-22deg) skewX(-12deg);
+    pointer-events: none;
+    opacity: 0.82;
+}
+
+.cinematic-orbit::before,
+.cinematic-orbit::after {
+    content: "";
+    position: absolute;
+    inset: 21px;
+    border: 1px solid rgba(255,255,255,0.10);
+    border-radius: 50%;
+}
+
+.cinematic-orbit::after {
+    inset: 48%;
+    border: 0;
+    width: 7px;
+    height: 7px;
+    background: #a8e8ff;
+    box-shadow: 0 0 18px 5px rgba(126,214,255,0.42);
+    animation: signalPulse 3.2s ease-in-out infinite;
+}
+
+.signal-trace {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 18px;
+    color: rgba(223, 246, 255, 0.78);
+    font-family: "SFMono-Regular", Consolas, monospace;
+    font-size: 0.69rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.signal-trace::before {
+    content: "";
+    display: inline-block;
+    width: 44px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #7ed6ff);
+}
+
+.signal-dot {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    margin-right: 6px;
+    border-radius: 50%;
+    background: #86e5b3;
+    box-shadow: 0 0 12px rgba(134,229,179,0.82);
+    animation: signalPulse 2.4s ease-in-out infinite;
+}
+
+.hero-readout {
+    display: flex;
+    justify-content: space-between;
+    gap: 18px;
+    margin-top: 22px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(255,255,255,0.14);
+    color: rgba(223,246,255,0.68);
+    font-family: "SFMono-Regular", Consolas, monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.hero-readout strong {
+    color: #f7fbff;
+    font-weight: 500;
+}
+
+.glass-card {
+    position: relative;
+    overflow: hidden;
+    padding: 22px;
+    border: 1px solid rgba(255,255,255,0.16);
+    border-radius: 22px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.13), rgba(255,255,255,0.045));
+    box-shadow: 0 24px 70px rgba(1, 19, 42, 0.24), inset 0 1px 0 rgba(255,255,255,0.08);
+}
+
+.glass-card::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(168,232,255,0.72), transparent);
+    opacity: 0.72;
+}
+
+.glass-card h2,
+.glass-card h3 {
+    letter-spacing: -0.02em;
+}
+
+.metric-card {
+    position: relative;
+    overflow: hidden;
+    transition: transform 260ms ease, border-color 260ms ease, box-shadow 260ms ease;
+}
+
+.metric-card::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -40%;
+    width: 24%;
+    background: linear-gradient(90deg, transparent, rgba(168,232,255,0.28), transparent);
+    transform: skewX(-18deg);
+    transition: left 650ms ease;
+    pointer-events: none;
+}
+
+.metric-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(168,232,255,0.42);
+    box-shadow: 0 18px 42px rgba(1, 19, 42, 0.28), inset 0 1px 0 rgba(255,255,255,0.12);
+}
+
+.metric-card:hover::after {
+    left: 130%;
+}
+
+.signal-rail {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1px;
+    margin: 0 0 24px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.10);
+}
+
+.signal-rail__node {
+    min-height: 74px;
+    padding: 14px 16px;
+    background: rgba(3,20,39,0.34);
+    transition: background 220ms ease, transform 220ms ease;
+}
+
+.signal-rail__node:hover {
+    background: rgba(126,214,255,0.10);
+    transform: translateY(-2px);
+}
+
+.signal-rail__label {
+    display: block;
+    color: rgba(223,246,255,0.58);
+    font-family: "SFMono-Regular", Consolas, monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.signal-rail__value {
+    display: block;
+    margin-top: 7px;
+    color: #f7fbff;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+@media (max-width: 760px) {
+    .signal-rail {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .hero-readout {
+        flex-direction: column;
+        gap: 8px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cinematic-frame::before,
+    .cinematic-orbit::after,
+    .signal-dot {
+        animation: none !important;
+    }
 }
 
 @media (max-width: 640px) {
@@ -602,8 +844,24 @@ def build_hero(pipeline) -> None:
             text-shadow: 0 0 10px rgba(255,255,255,0.45), 0 1px 1px rgba(0,0,0,0.08);
         }
         </style>
-        <div class="hero">
+        <div class="hero cinematic-frame">
+            <div class="cinematic-orbit" aria-hidden="true"></div>
+            <div class="signal-trace"><span class="signal-dot"></span>Threat intelligence / live inference layer</div>
             <div class="glow-title">ML Powered Cloud-Based Security System</div>
+            <div style="max-width:760px;margin:12px auto 0;text-align:center;color:rgba(223,246,255,0.78);font-size:1.03rem;line-height:1.65;">
+                A cinematic command surface for reading network behavior before it becomes an incident.
+            </div>
+            <div class="hero-readout">
+                <span>Pipeline <strong>RANDOM FOREST / MULTI-CLASS</strong></span>
+                <span>Signal <strong>ENCRYPTED / READY</strong></span>
+                <span>Mode <strong>FLOW ANALYSIS</strong></span>
+            </div>
+        </div>
+        <div class="signal-rail" aria-label="Security system status">
+            <div class="signal-rail__node"><span class="signal-rail__label">Input fabric</span><span class="signal-rail__value">Network flow vectors</span></div>
+            <div class="signal-rail__node"><span class="signal-rail__label">Decision engine</span><span class="signal-rail__value">35 selected features</span></div>
+            <div class="signal-rail__node"><span class="signal-rail__label">Classification</span><span class="signal-rail__value">Multi-class detection</span></div>
+            <div class="signal-rail__node"><span class="signal-rail__label">Operator state</span><span class="signal-rail__value"><span class="signal-dot"></span>Awaiting signal</span></div>
         </div>
         """,
         unsafe_allow_html=True,
